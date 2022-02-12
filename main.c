@@ -43,6 +43,8 @@
 
 #include "mcc_generated_files/mcc.h"
 
+#include "modbus_local/modbus_interface.h"
+
 /*
                          Main application
  */
@@ -50,6 +52,9 @@ void main(void)
 {
     // initialize the device
     SYSTEM_Initialize();
+    
+    // Initialize the MODBUS interface
+    initModbusInterface();
 
     // When using interrupts, you need to set the Global and Peripheral Interrupt Enable bits
     // Use the following macros to:
@@ -65,10 +70,15 @@ void main(void)
 
     // Disable the Peripheral Interrupts
     //INTERRUPT_PeripheralInterruptDisable();
+    
+    
+    // Enable the MODBUS interface
+    enableModbusInterface();
+    
 
     while (1)
     {
-        // Add your application code
+        loopModbusInterface();
     }
 }
 /**
